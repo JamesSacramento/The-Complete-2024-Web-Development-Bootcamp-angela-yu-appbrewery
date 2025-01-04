@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <div class="post-detail">
+      <h1><%= post.title %></h1>
+      <p class="post-content"><%= post.content %></p>
+      <div class="post-buttons">
+        <a href="/posts/<%= post.id %>/edit">Edit</a>
+        <form action="/posts/<%= post.id %>/delete" method="post">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>

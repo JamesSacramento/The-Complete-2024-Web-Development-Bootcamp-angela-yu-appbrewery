@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EJS TAGS</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>EJS TAGS</h1>
+      <p>Current Second: <%= currentSecond %></p>
+
+      <% if (isEven) { %>
+      <ul>
+        <% fruits.forEach(fruit => { %>
+        <li><%= fruit %></li>
+        <% }); %>
+      </ul>
+      <% } else { %>
+      <p>No items to display</p>
+      <% } %>
+
+      <p><em>This is some em text</em></p>
+
+      <%- include('footer') %>
+    </div>
+  </body>
+</html>

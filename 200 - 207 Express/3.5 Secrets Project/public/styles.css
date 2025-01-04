@@ -1,0 +1,175 @@
+:root {
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --header-background: #007bff;
+    --header-text: white;
+    --section-background: #fff;
+    --section-text: #333;
+    --button-background: #007bff;
+    --button-text: #fff;
+    --button-hover-background: #0056b3;
+    --button-hover-text: #fff;
+    --footer-background: #333;
+    --footer-text: white;
+}
+
+[data-theme="dark"] {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --header-background: #1e1e1e;
+    --header-text: #e0e0e0;
+    --section-background: #1e1e1e;
+    --section-text: #e0e0e0;
+    --button-background: #3a3a3a;
+    --button-text: #e0e0e0;
+    --button-hover-background: #575757;
+    --button-hover-text: #fff;
+    --footer-background: #1e1e1e;
+    --footer-text: #e0e0e0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--header-background);
+    color: var(--header-text);
+    padding: 1rem;
+    text-align: center;
+}
+
+nav {
+    margin: 0 auto;
+}
+
+.hero {
+    background: var(--header-background);
+    color: var(--header-text);
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 1.2rem;
+}
+
+.form-section,
+.secrets,
+.cta {
+    background-color: var(--section-background);
+    padding: 2rem 1rem;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.form-section form {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+form label,
+form input {
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+}
+
+form input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input[type="submit"] {
+    background-color: var(--button-background);
+    color: var(--button-text);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: var(--button-hover-background);
+    color: var(--button-hover-text);
+}
+
+.secrets h3,
+.cta h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.secrets ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.secrets ul li {
+    background-color: var(--section-background);
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cta p {
+    font-size: 1.2rem;
+    margin: 0 0 1.5rem 0;
+}
+
+.cta button {
+    background-color: var(--button-background);
+    color: var(--button-text);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cta button:hover {
+    background-color: var(--button-hover-background);
+    color: var(--button-hover-text);
+}
+
+footer {
+    background-color: var(--footer-background);
+    color: var(--footer-text);
+    text-align: center;
+    padding: 1rem 0;
+}
+
+footer p {
+    margin: 0;
+}
+
+.toggle-container {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.toggle-container button {
+    background-color: var(--button-background);
+
+    color: var[_ {
+            {
+                {
+                CITATION {
+                        {
+                            {
+                            _1 {
+                                ](https: //github.com/henriquegmendes/url-shortener-alfred/tree/bb8fda4cedbf8bee33efa5830fece6ad80841440/documentation%2Fredirect-to-url.md)

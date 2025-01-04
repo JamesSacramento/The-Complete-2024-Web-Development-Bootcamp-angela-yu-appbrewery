@@ -1,0 +1,109 @@
+/* Base Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  max-width: 800px;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+header,
+main,
+footer {
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 20px;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Button Styles */
+.buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#colorBtn {
+  background-color: #4CAF50;
+}
+
+#imageBtn {
+  background-color: #FF5733;
+}
+
+#bigTitleBtn {
+  background-color: #FFC300;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Footer Styles */
+footer p {
+  margin: 20px 0 0;
+  font-size: 0.875rem;
+  color: #777;
+}
+
+/* Big Title Class */
+.big-title {
+  font-size: 4rem;
+  color: #333;
+}
+
+/* Image Zoom */
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+.image-container img.zoomed {
+  transform: scale(1.5);
+  cursor: zoom-out;
+}

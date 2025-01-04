@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secrets</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      function toggleDarkMode() {
+        const currentTheme =
+          document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "" : "dark";
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedTheme = localStorage.getItem("theme") || "";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <h2>Welcome to Secrets</h2>
+        <p>Enter the secret password to uncover the best-kept secrets!</p>
+      </section>
+      <section class="form-section">
+        <form action="/check" method="POST">
+          <label for="password">Password:</label>
+          <input type="text" id="password" name="password" required />
+          <input type="submit" value="Submit" />
+        </form>
+      </section>
+      <div class="toggle-container">
+        <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2025 Secrets Inc. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
