@@ -1,0 +1,40 @@
+body {
+    background-color: #2c2f33;
+    color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    background-color: #23272a;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.form-label,
+.btn {
+    color: #f8f9fa;
+}
+
+.btn-primary {
+    background-color: #7289da;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #5b6eae;
+}
+
+.alert-success {
+    background-color: #28a745;
+    color: #f8f9fa;
+}
+
+.alert a.short-url {
+    color: #f8f9fa;
+    font-weight: bold;
+    text-decoration: underline;
+}
