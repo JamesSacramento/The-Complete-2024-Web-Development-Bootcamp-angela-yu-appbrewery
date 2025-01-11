@@ -8,13 +8,29 @@ const masterKey = "4VGP2DN-6EWM4SJ-N6FGRHV-Z3PR3TT";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Enhanced middleware function to map joke fields and handle ID
+const mapJokeFields = (req, res, next) => {
+    if (req.body.text) {
+        req.body.jokeText = req.body.text;
+        delete req.body.text;
+    }
+    if (req.body.type) {
+        req.body.jokeType = req.body.type;
+        delete req.body.type;
+    }
+    if (req.body.id) {
+        req.params.id = req.body.id;
+    }
+    next();
+};
+
 // 1. GET a random joke
 app.get('/api/jokes/random', (req, res) => {
     const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
     res.json(randomJoke);
 });
 
-// 2. GET a specific joke
+// 2. GET a specific joke by URL parameter
 app.get('/api/jokes/:id', (req, res) => {
     const joke = jokes.find(j => j.id == req.params.id);
     joke ? res.json(joke) : res.status(404).send('Joke not found');
@@ -28,37 +44,46 @@ app.get('/api/jokes', (req, res) => {
 });
 
 // 4. POST a new joke
-app.post('/api/jokes', (req, res) => {
-    const newJoke = req.body;
+app.post('/api/jokes', mapJokeFields, (req, res) => {
+    const newId = jokes.length ? Math.max(...jokes.map(j => j.id)) + 1 : 1;
+    const newJoke = {
+        id: newId,
+        jokeText: req.body.jokeText,
+        jokeType: req.body.jokeType,
+    };
     jokes.push(newJoke);
     res.status(201).json(newJoke);
 });
 
-// 5. PUT a joke
-app.put('/api/jokes/:id', (req, res) => {
+// 5. PUT a joke using ID in the body
+app.put('/api/jokes/:id?', mapJokeFields, (req, res) => {
     const joke = jokes.find(j => j.id == req.params.id);
     if (joke) {
-        Object.assign(joke, req.body);
+        joke.jokeText = req.body.jokeText;
+        joke.jokeType = req.body.jokeType;
         res.json(joke);
     } else {
         res.status(404).send('Joke not found');
     }
 });
 
-// 6. PATCH a joke
-app.patch('/api/jokes/:id', (req, res) => {
+// 6. PATCH a joke using ID in the body
+app.patch('/api/jokes/:id?', mapJokeFields, (req, res) => {
     const joke = jokes.find(j => j.id == req.params.id);
     if (joke) {
-        Object.entries(req.body).forEach(([key, value]) => {
-            joke[key] = value;
-        });
+        if (req.body.jokeText) {
+            joke.jokeText = req.body.jokeText;
+        }
+        if (req.body.jokeType) {
+            joke.jokeType = req.body.jokeType;
+        }
         res.json(joke);
     } else {
         res.status(404).send('Joke not found');
     }
 });
 
-// 7. DELETE a specific joke
+// 7. DELETE a specific joke by URL parameter
 app.delete('/api/jokes/:id', (req, res) => {
     jokes = jokes.filter(j => j.id != req.params.id);
     res.send('Joke deleted');
