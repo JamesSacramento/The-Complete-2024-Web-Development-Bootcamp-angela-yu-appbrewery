@@ -12,7 +12,7 @@
         type="text"
         name="country"
         autofocus
-        placeholder="Enter country code"
+        placeholder="Enter country name or code"
       />
       <button type="submit" id="add-button">Add</button>
       <button type="button" id="remove-button">Remove</button>
@@ -918,48 +918,92 @@
       </svg>
     </section>
 
-    <h2 class="total-count">Total Countries: <%= total %></h2>
+    <h2 class="total-count">
+      Total Countries: <span id="total-count"><%= total %></span>
+    </h2>
 
     <script>
-      const form = document.getElementById("add-remove-country-form");
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const country = document
-          .querySelector('input[name="country"]')
-          .value.trim()
-          .toUpperCase();
+      async function getCountryCode(countryName) {
         try {
-          const response = await fetch("/add", {
+          const response = await fetch("/get-country-code", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ country }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ country_name: countryName }),
           });
           const result = await response.json();
           if (result.success) {
-            const countryElement = document.createElement("li");
-            countryElement.id = `country-${result.country}`;
-            countryElement.innerText = result.country;
-            document.querySelector("ul").appendChild(countryElement);
-            document.getElementById(result.country).style.fill = "teal";
+            return result.country_code;
           } else {
-            alert(result.error);
+            return countryName.toUpperCase();
           }
         } catch (error) {
           console.error("Error:", error);
+          return countryName.toUpperCase();
         }
-      });
+      }
+
+      function updateTotalCount(newTotal) {
+        document.getElementById("total-count").innerText = newTotal;
+      }
+
+      function highlightCountry(countryCode, highlight) {
+        const countryElement = document.getElementById(countryCode);
+        if (countryElement) {
+          countryElement.style.fill = highlight ? "teal" : "";
+        }
+      }
+
+      document
+        .getElementById("add-remove-country-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const countryInput = document
+            .querySelector('input[name="country"]')
+            .value.trim();
+          const country = await getCountryCode(countryInput);
+          console.log("Country submitted for addition:", country); // Debug log
+
+          try {
+            const response = await fetch("/add", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ country }),
+            });
+            const result = await response.json();
+            if (result.success) {
+              const countryElement = document.createElement("li");
+              countryElement.id = `country-${result.country}`;
+              countryElement.innerText = result.country;
+              document.querySelector("ul").appendChild(countryElement);
+              highlightCountry(result.country, true);
+              updateTotalCount(result.total);
+            } else {
+              alert(result.error);
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
 
       document
         .getElementById("remove-button")
         .addEventListener("click", async () => {
-          const country = document
+          const countryInput = document
             .querySelector('input[name="country"]')
-            .value.trim()
-            .toUpperCase();
+            .value.trim();
+          const country = await getCountryCode(countryInput);
+          console.log("Country submitted for removal:", country); // Debug log
+
           try {
             const response = await fetch("/remove", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify({ country }),
             });
             const result = await response.json();
@@ -968,7 +1012,8 @@
                 `country-${country}`
               );
               if (countryElement) countryElement.remove();
-              document.getElementById(country).style.fill = "";
+              highlightCountry(country, false);
+              updateTotalCount(result.total);
             } else {
               alert(result.error);
             }
@@ -979,7 +1024,7 @@
 
       const country_codes = "<%= countries %>".split(",");
       country_codes.forEach((code) => {
-        document.getElementById(code).style.fill = "teal";
+        highlightCountry(code, true);
       });
     </script>
   </body>
