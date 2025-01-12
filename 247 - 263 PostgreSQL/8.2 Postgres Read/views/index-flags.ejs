@@ -11,14 +11,14 @@
         justify-content: space-between;
         align-items: center;
       }
-      #countryName {
-        display: inline-block;
-        min-width: 150px; /* Minimum width */
-        max-width: 100%; /* Allow it to grow */
-        padding: 10px;
-        font-size: 2rem;
-        word-wrap: break-word; /* Ensure long words break to the next line */
-        box-sizing: border-box;
+      #flagContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+      }
+      #flagImage {
+        font-size: 5rem; /* Adjust font size for visibility */
       }
     </style>
   </head>
@@ -27,31 +27,35 @@
       <div class="horizontal-container">
         <h3>
           Total Score:
-          <span id="score"><%= locals.totalScore ? totalScore : "0" %></span>
+          <span id="score"><%= totalScore || "0" %></span>
         </h3>
       </div>
-      <h1 id="countryName"><%= question.country %></h1>
+      <div id="flagContainer">
+        <div id="flagImage"><%= question.flag %></div>
+      </div>
       <div class="answer-container">
         <input
           type="text"
           name="answer"
           id="userInput"
-          placeholder="Name the capital"
+          placeholder="Name the country"
           autofocus
           autocomplete="off"
         />
       </div>
       <button type="submit">
-        SUBMIT <% if (locals.wasCorrect) { %>
-        <span class="checkmark">✔</span> <% } else if (locals.wasCorrect ===
-        false) { %> <span class="cross" id="error">✖</span> <% } %>
+        SUBMIT <% if (wasCorrect) { %>
+        <span class="checkmark">✔</span>
+        <% } else if (wasCorrect === false) { %>
+        <span class="cross" id="error">✖</span>
+        <% } %>
       </button>
     </form>
     <script>
-      var wasCorrect = "<%= locals.wasCorrect %>";
+      const wasCorrect = "<%= wasCorrect %>";
       console.log(wasCorrect);
       if (wasCorrect === "false") {
-        alert("Game over! Final best score: <%= locals.totalScore %>");
+        alert("Game over! Final best score: <%= totalScore %>");
         document.getElementById("app").innerHTML =
           '<a href="/" class="restart-button">Restart</a>';
       }

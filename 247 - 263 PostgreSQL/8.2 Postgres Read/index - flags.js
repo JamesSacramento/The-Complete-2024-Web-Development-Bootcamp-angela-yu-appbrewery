@@ -9,14 +9,14 @@ const port = 3000;
 
 // PostgreSQL client setup
 const client = new Client({
-  user: "postgres",
-  host: "localhost",
-  database: "world",
-  password: ,
+  user: 'postgres',
+  host: 'localhost',
+  database: 'world',
+  password: 
   port: 5432,
 });
 
-client.connect();
+client.connect().catch(err => console.error("Connection error", err.stack));
 
 let totalCorrect = 0;
 
@@ -32,7 +32,7 @@ app.get("/", async (req, res) => {
   totalCorrect = 0;
   await nextQuestion();
   console.log(currentQuestion);
-  res.render("index", { question: currentQuestion, totalScore: 0, wasCorrect: null });
+  res.render("index-flags", { question: currentQuestion, totalScore: 0, wasCorrect: null });
 });
 
 // POST a new post
@@ -40,14 +40,14 @@ app.post("/submit", async (req, res) => {
   let answer = normalizeInput(req.body.answer.trim().toLowerCase());
   let isCorrect = false;
 
-  if (!currentQuestion.capital || normalizeInput(currentQuestion.capital.toLowerCase()) === answer) {
+  if (!currentQuestion.name || normalizeInput(currentQuestion.name.toLowerCase()) === answer) {
     totalCorrect++;
     console.log(totalCorrect);
     isCorrect = true;
   }
 
   await nextQuestion();
-  res.render("index", {
+  res.render("index-flags", {
     question: currentQuestion,
     wasCorrect: isCorrect,
     totalScore: totalCorrect,
@@ -64,7 +64,7 @@ function normalizeInput(input) {
 
 async function nextQuestion() {
   const result = await client.query(
-    "SELECT country, capital FROM capitals ORDER BY RANDOM() LIMIT 1"
+    "SELECT name, flag FROM flags ORDER BY RANDOM() LIMIT 1"
   );
   currentQuestion = result.rows[0];
 }
